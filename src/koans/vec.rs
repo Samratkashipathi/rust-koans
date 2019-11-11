@@ -1,14 +1,14 @@
 // Vecs act sort of like arrays, but allow more flexibility
 #[test]
 fn making_an_empty_vec() {
-    let vector: Vec<()> = __;
+    let vector: Vec<()> = vec![];
     assert!(vector.len() == 0);
 }
 
 // The vec! macro makes it easier to instantiate a vec
 #[test]
 fn vec_macro() {
-    let vector = __;
+    let vector = [1, 2, 3, 4];
     assert!(vector.len() == 4);
 }
 
@@ -16,7 +16,7 @@ fn vec_macro() {
 #[test]
 fn adding_to_vecs() {
     let mut vector = vec![0, 1, 2];
-    vector.__(3);
+    vector.push(3);
     assert!(vector.len() == 4);
 }
 
@@ -24,7 +24,7 @@ fn adding_to_vecs() {
 #[test]
 fn removing_from_end_of_vecs() {
     let mut vector = vec![0, 1, 2, 3];
-    vector.__();
+    vector.pop();
     assert!(vector.len() == 3);
 }
 
@@ -32,7 +32,7 @@ fn removing_from_end_of_vecs() {
 #[test]
 fn storing_vec_elements() {
     let mut vector = vec![0, 1, 2, 3];
-    let num = vector.__();
+    let num = vector.pop();
     assert!(num == 3);
 }
 
@@ -41,9 +41,9 @@ fn storing_vec_elements() {
 #[test]
 fn changing_size_of_vecs() {
     let mut vector = vec![1, 2, 3];
-    __;
+    vector.push(4);
     assert!(vector.len() == 4);
-    __;
+    vector.pop();
     assert!(vector.len() == 3);
 }
 
@@ -53,10 +53,10 @@ fn changing_size_of_vecs() {
 fn capacity() {
     let mut vector = vec![1, 2, 3, 4];
     assert_eq!(vector.capacity(), 4);
-    vector.__;
+    vector.push(5);
     assert_eq!(vector.capacity(), 8);
     vector.pop();
-    assert_eq!(vector.capacity(), __);
+    assert_eq!(vector.capacity(), 8);
 }
 
 // This extra memory can also be deallocated when its no longer needed
@@ -65,16 +65,16 @@ fn shrink_vecs() {
     let mut vector = vec![1, 2, 3, 4, 5];
     assert_eq!(vector.capacity(), 5);
     vector.pop();
-    assert_eq!(vector.capacity(), __);
+    assert_eq!(vector.capacity(), 5);
     vector.shrink_to_fit();
-    assert_eq!(vector.capacity(), __);
+    assert_eq!(vector.capacity(), 4);
 }
 
 // Vecs can reserve more space in order to prevent allocating several times
 #[test]
 fn reserve() {
     let mut vector = vec![1];
-    vector.reserve(__);
+    vector.reserve(7);
     assert_eq!(vector.capacity(), 8);
 }
 
@@ -82,7 +82,7 @@ fn reserve() {
 #[test]
 fn truncate() {
     let mut vector = vec![1, 2, 3, 4, 5];
-    vector.__;
+    vector.truncate(2);
     assert_eq!(vector, vec![1, 2]);
 }
 
@@ -91,14 +91,14 @@ fn truncate() {
 fn insert() {
     let mut vector = vec![1, 2, 3, 4, 5];
     vector.insert(2, 6);
-    assert_eq!(vector, __);
+    assert_eq!(vector, [1, 2, 6, 4, 5]);
 }
 
 // Elements can also be deleted a particular position in a Vector
 #[test]
 fn remove() {
     let mut vector = vec![1, 2, 3, 4, 5];
-    vector.remove(__);
+    vector.remove(0);
     assert_eq!(vector, vec![2, 3, 4, 5])
 }
 
